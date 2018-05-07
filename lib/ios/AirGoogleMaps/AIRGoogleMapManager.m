@@ -257,6 +257,24 @@ RCT_EXPORT_METHOD(setIndoorActiveLevelIndex:(nonnull NSNumber *)reactTag
 
 }
 
+RCT_EXPORT_METHOD(forceOnIndoorBuildingFocused:(nonnull NSNumber *)reactTag)
+{
+  [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry) {
+    id view = viewRegistry[reactTag];
+    if (![view isKindOfClass:[AIRGoogleMap class]]) {
+      RCTLogError(@"Invalid view returned from registry, expecting AIRGoogleMap, got: %@", view);
+    } else {
+      if (!self.map.indoorDisplay || !self.map.indoorDisplay.activeBuilding) {
+        return;
+      }
+
+      GMSIndoorBuilding *building = (GMSIndoorBuilding *)self.map.indoorDisplay.activeBuilding;
+
+      [self didChangeActiveBuilding:building]
+    }
+  }];
+}
+
 RCT_EXPORT_METHOD(takeSnapshot:(nonnull NSNumber *)reactTag
                   withWidth:(nonnull NSNumber *)width
                   withHeight:(nonnull NSNumber *)height

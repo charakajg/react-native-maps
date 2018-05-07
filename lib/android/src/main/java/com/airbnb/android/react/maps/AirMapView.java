@@ -983,6 +983,10 @@ public class AirMapView extends MapView implements
       }
     }
 
+    public void forceOnIndoorBuildingFocused() {
+      this.onIndoorBuildingFocused();
+    }
+
   public void setKmlSrc(String kmlSrc) {
     try {
       InputStream kmlStream =  new FileUtil(context).execute(kmlSrc).get();

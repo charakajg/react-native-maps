@@ -38,6 +38,7 @@ public class AirMapManager extends ViewGroupManager<AirMapView> {
     private static final int FIT_TO_COORDINATES = 7;
     private static final int SET_MAP_BOUNDARIES = 8;
     private static final int SET_INDOOR_ACTIVE_LEVEL_INDEX = 9;
+    private static final int FORCE_ON_INDOOR_BUILDING_FOCUSED = 10;
 
   private final Map<String, Integer> MAP_TYPES = MapBuilder.of(
       "standard", GoogleMap.MAP_TYPE_NORMAL,
@@ -305,6 +306,10 @@ public class AirMapManager extends ViewGroupManager<AirMapView> {
       case SET_INDOOR_ACTIVE_LEVEL_INDEX:
         view.setIndoorActiveLevelIndex(args.getInt(0));
         break;
+
+      case FORCE_ON_INDOOR_BUILDING_FOCUSED:
+        view.forceOnIndoorBuildingFocused();
+        break;
     }
   }
 
@@ -353,7 +358,8 @@ public class AirMapManager extends ViewGroupManager<AirMapView> {
     );
     map.putAll(MapBuilder.of(
       "setMapBoundaries", SET_MAP_BOUNDARIES,
-      "setIndoorActiveLevelIndex", SET_INDOOR_ACTIVE_LEVEL_INDEX
+      "setIndoorActiveLevelIndex", SET_INDOOR_ACTIVE_LEVEL_INDEX,
+      "forceOnIndoorBuildingFocused",FORCE_ON_INDOOR_BUILDING_FOCUSED
     ));
 
     return map;
